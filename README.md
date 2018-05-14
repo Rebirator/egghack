@@ -5,7 +5,7 @@ Default Stacker Font: https://www.dafont.com/smallest-pixel-7.font
 ## todo
 * change menu
 * add color changer
-* add multipoint hitscan
+* add multipoint hitscan (add better)
 * add better resolver
-* better AA
-* change visuals to make it look non pasted
+* better AA (automatic???)
+* change visuals to make it look non pasted (skeeto?!?!???!?)
