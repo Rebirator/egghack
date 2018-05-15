@@ -337,11 +337,16 @@ namespace SDK
 		/*float pin_pulled()
 		{
 			return *reinterpret_cast<float*>(uintptr_t(this) + OFFSETS::m_bPinPulled);
-		}
+		}*/
+
+		//float throw_time()
+		//{
+		//	return *reinterpret_cast<float*>(uintptr_t(this) + OFFSETS::m_fThrowTime);
+		//}
 
 		float throw_time()
 		{
-			return *reinterpret_cast<float*>(uintptr_t(this) + OFFSETS::m_fThrowTime);
-		}*/
+			return *reinterpret_cast<float*>(uintptr_t(this) + 0x3344); /// much more stable but using hardcoded offsets??!?!?!
+		}
 	};
 }

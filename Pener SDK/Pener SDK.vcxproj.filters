@@ -207,9 +207,6 @@
     <ClInclude Include="HOOKS\hooks.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="HOOKS\MAKESEPERATEFILESFORHOOKS.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MENU\Components.h">
       <Filter>Header Files</Filter>
     </ClInclude>

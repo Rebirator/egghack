@@ -544,6 +544,31 @@ namespace HOOKS
 				if (is_teammate)
 					continue;
 
+				if (SETTINGS::settings.draw_fake)
+				{
+					if (local_player)
+					{
+						if (notignorez)
+						{
+							Vector OrigAng;
+							OrigAng = local_player->GetEyeAngles();
+							//---p100 fake angle detector---//
+							local_player->SetAngle2(Vector(0, local_player->GetLowerBodyYaw(), 0));
+							//---End---//
+							//---Incase you dont use the fake_angle_col---//
+							bool LbyColor = false;
+							float NormalColor[3] = { 1,1,1 };
+							float lbyupdatecolor[3] = { 0,1,0 };
+							//---End---//
+							INTERFACES::RenderView->SetColorModulation(SETTINGS::settings.fake_darw_col); //color thingy on the menu//
+							INTERFACES::ModelRender->ForcedMaterialOverride(notignorez);
+							local_player->DrawModel(0x1, 255);
+							INTERFACES::ModelRender->ForcedMaterialOverride(nullptr);
+							local_player->SetAngle2(OrigAng);
+						}
+					}
+				}
+
 				//--- Colored Models ---//
 
 				if (!is_local_player && entity && SETTINGS::settings.chams_type == 2)

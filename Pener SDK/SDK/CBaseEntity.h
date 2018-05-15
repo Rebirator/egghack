@@ -249,6 +249,12 @@ namespace SDK
 		{
 			(*(CAnimationLayer**)((DWORD)this + 0x2970))[Index] = layer;
 		}
+		void SetAngle2(Vector wantedang)
+		{
+		typedef void(__thiscall* SetAngleFn)(void*, const Vector &);
+			static SetAngleFn SetAngle = (SetAngleFn)((DWORD)UTILS::FindSignature("client.dll", "55 8B EC 83 E4 F8 83 EC 64 53 56 57 8B F1"));
+			SetAngle(this, wantedang);
+		}
 		int CBaseEntity::GetSequenceActivity(int sequence)
 		{
 			const auto model = GetModel();

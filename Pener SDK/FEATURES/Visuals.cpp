@@ -116,12 +116,13 @@ void CVisuals::Draw()
 		}
 
 		//--- Entity Related Rendering ---///
-		switch (SETTINGS::settings.box_type)
-		{
-		case 0: break;
-		case 1: DrawBox(entity, box_color); break;
-		case 2: DrawCorners(entity, box_color); break;
-		}
+		//switch (SETTINGS::settings.box_type)
+		//{
+		///case 0: break;
+		//case 1: DrawBox(entity, box_color); break;
+		//case 2: DrawCorners(entity, box_color); break;
+		//}
+		if (SETTINGS::settings.box_bool5) DrawBox(entity, box_color);
 		if (SETTINGS::settings.name_bool) DrawName(entity, main_color, i);
 		if (SETTINGS::settings.weap_bool) DrawWeapon(entity, main_color, i);
 		if (SETTINGS::settings.health_bool) DrawHealth(entity, still_health, alt_color);
@@ -139,6 +140,15 @@ void CVisuals::ClientDraw()
 
 	DrawIndicator();
 	DrawHitmarker();
+
+	auto pLocal = INTERFACES::ClientEntityList->GetClientEntity(INTERFACES::Engine->GetLocalPlayer());
+	static SDK::ConVar* crosshair = INTERFACES::cvar->FindVar("weapon_debug_spread_show");
+	if (SETTINGS::settings.x1hair_bool)
+	{
+		crosshair->SetValue(3);
+	} else {
+		crosshair->SetValue(0);
+	}
 }
 
 std::string str_to_upper(std::string strToConvert)
@@ -723,7 +733,7 @@ const char* clantaganimation[11] = {
 	"stackh  a  c",
 	"stackha  c k"
 	"stackhac k  "
-	"stackhack"
+	"stackhack" // need to change
 };
 
 int kek = 0;
@@ -804,18 +814,15 @@ void CVisuals::DrawBulletBeams()
 		bool is_teammate = local_player->GetTeam() == current.pPlayer->GetTeam() && !is_local_player;
 
 		if (current.pPlayer == local_player)
-		{
-			//current.color = { 0, 255, 0 };
-			continue;
-		}
+			current.color = SETTINGS::settings.localbeam_col;
 		else if (current.pPlayer != local_player && !is_teammate)
-			current.color = { 255, 0, 0 };
+			current.color = SETTINGS::settings.enemybeam_col;
 		else if (current.pPlayer != local_player && is_teammate)
-			current.color = { 0, 80, 255};
+			current.color = SETTINGS::settings.friendlybeam_col;
 
 		SDK::BeamInfo_t beamInfo;
 		beamInfo.m_nType = SDK::TE_BEAMPOINTS;
-		beamInfo.m_pszModelName = "sprites/physbeam.vmt"; //purplelaser1
+		beamInfo.m_pszModelName = "sprites/purplelaser1.vmt";
 		beamInfo.m_nModelIndex = -1;
 		beamInfo.m_flHaloScale = 0.0f;
 		beamInfo.m_flLife = 3.0f;
@@ -823,7 +830,7 @@ void CVisuals::DrawBulletBeams()
 		beamInfo.m_flEndWidth = 2.0f;
 		beamInfo.m_flFadeLength = 0.0f;
 		beamInfo.m_flAmplitude = 2.0f;
-		beamInfo.m_flBrightness = 255.f; 
+		beamInfo.m_flBrightness = 255.f;
 		beamInfo.m_flSpeed = 0.2f;
 		beamInfo.m_nStartFrame = 0;
 		beamInfo.m_flFrameRate = 0.f;
@@ -845,6 +852,8 @@ void CVisuals::DrawBulletBeams()
 
 		Impacts.erase(Impacts.begin() + i);
 	}
+
+	/// this is homo code but still. need some redoing
 }
 
 void CVisuals::DrawCrosshair()
@@ -1046,8 +1055,8 @@ void CVisuals::DrawIndicator()
 
 	/*if (SETTINGS::settings.aa_type == 2 || SETTINGS::settings.aa_type == 4)
 	{
-		if (in_tp)
-			return;
+		//if (in_tp)
+		//	return;
 
 		if (SETTINGS::settings.flip_bool)
 		{
@@ -1059,7 +1068,7 @@ void CVisuals::DrawIndicator()
 			RENDER::DrawF((screen_width / 2) - 40, screen_height / 2, FONTS::visuals_side_font, true, true, CColor(10, 145, 190, 255), "<"); //green
 			RENDER::DrawF((screen_width / 2) + 40, screen_height / 2, FONTS::visuals_side_font, true, true, CColor(255, 255, 255, 255), ">");
 		}
-	}*/
+	}*/ /// homo shit needs fixing
 }
 
 void CVisuals::LogEvents()

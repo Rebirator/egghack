@@ -11,6 +11,17 @@
 
 namespace MENU
 {
+
+	const std::string nowtime() {
+		time_t     now = time(0);
+		struct tm  tstruct;
+		char       buf[80];
+		tstruct = *localtime(&now);
+		strftime(buf, sizeof(buf), "%X", &tstruct);
+
+		return buf;
+	}
+
 	void InitColors()
 	{
 		using namespace PPGUI_PP_GUI;
@@ -33,7 +44,7 @@ namespace MENU
 			colors[SEPARATOR_TEXT] = WHITE;
 			colors[SEPARATOR_LINE] = CColor(90, 90, 90, 255);
 
-			colors[CHECKBOX_CLICKED] = WHITERED; //255, 75, 0
+			colors[CHECKBOX_CLICKED] = CColor(75, 255, 0), 255; //255, 75, 0
 			colors[CHECKBOX_NOT_CLICKED] = CColor(90, 90, 90, 255);
 			colors[CHECKBOX_TEXT] = WHITE;
 
@@ -47,12 +58,12 @@ namespace MENU
 			colors[COMBOBOX_ITEM_TEXT] = WHITE;
 
 			colors[SLIDER_BODY] = CColor(90, 90, 90, 255);
-			colors[SLIDER_VALUE] = WHITERED; //255, 75, 0
+			colors[SLIDER_VALUE] = CColor(75, 255, 0, 255); //255, 75, 0
 			colors[SLIDER_TEXT] = WHITE;
 
 			colors[TAB_BODY] = CColor(90, 90, 90, 255);
 			colors[TAB_TEXT] = WHITE;
-			colors[TAB_BODY_SELECTED] = WHITERED; //255, 75, 0
+			colors[TAB_BODY_SELECTED] = CColor(75, 255, 0, 255); //255, 75, 0
 			colors[TAB_TEXT_SELECTED] = WHITE;
 
 			colors[VERTICAL_TAB_BODY] = CColor(70, 70, 70, 255);
@@ -69,7 +80,7 @@ namespace MENU
 	{
 		//all of this cool gui stuff made by bolbi, but i decide to just render text and make binds for every feature. sorry bolbi!
 
-		static bool menu_open = false;
+		static bool menu_open = true;
 
 		if (UTILS::INPUT::input_handler.GetKeyState(VK_INSERT) & 1)
 		{
@@ -95,6 +106,14 @@ namespace MENU
 		}
 		else
 		{
+
+			int w, h;
+			INTERFACES::Engine->GetScreenSize(w, h);
+			RENDER::DrawFilledRect(w - 182, 4, 182 + w - 187, 20, CColor(96, 150, 0, 125));
+			RENDER::DrawF(w - 187 + 7, 5, FONTS::menu_window_font, false, false, CColor(255, 255, 255, 255), "echocheats | ");
+			RENDER::DrawF(w - 187 + 92, 5, FONTS::menu_window_font, false, false, CColor(255, 255, 255, 255), nowtime());
+
+
 			if (menu_open)
 			{
 				using namespace PPGUI_PP_GUI;
@@ -106,18 +125,18 @@ namespace MENU
 				DrawMouse();
 
 				SetFont(FONTS::menu_window_font);
-				WindowBegin("stackhack private", Vector2D(200, 200), Vector2D(700, 450));
+				WindowBegin("echocheats", Vector2D(200, 200), Vector2D(700, 450));
 
 				std::vector<std::string> tabs = { "aimbot", "visuals", "misc", "antiaim", "config" };
 				std::vector<std::string> aim_mode = { "rage", "legit" };
 				std::vector<std::string> acc_mode = { "head", "body aim", "hitscan" };
 				std::vector<std::string> chams_mode = { "none", "visible", "invisible" };
 				std::vector<std::string> aa_pitch = { "none", "emotion", "fake down", "fake up", "fake zero" };
-				std::vector<std::string> aa_mode = { "none", "backwards", "sideways", "cubed", "backjitter", "lowerbody", "legit troll", "automatic" };
+				std::vector<std::string> aa_mode = { "none", "backwards", "sideways", "cubed", "backjitter", "lowerbody", "legit1" , "automatic / freestand"};
 				std::vector<std::string> configs = { "default", "legit", "autos", "scouts", "pistols", "awps", "nospread" };
 				std::vector<std::string> box_style = { "none", "full", "debug" };
 				std::vector<std::string> media_style = { "perfect", "random" };
-				std::vector<std::string> delay_shot = { "off", "lag compensation" };
+				std::vector<std::string> delay_shot = { "off", "lag comp" };
 				std::vector<std::string> fakelag_mode = { "factor", "switch" };
 
 				std::string config;
@@ -162,7 +181,7 @@ namespace MENU
 								GroupboxBegin("accuracy", 105);
 							else
 								GroupboxBegin("accuracy", 85);
-							Checkbox("angle correction", SETTINGS::settings.resolve_bool);
+							Checkbox("resolve angles", SETTINGS::settings.resolve_bool);
 							Checkbox("quick stop", SETTINGS::settings.stop_bool);
 							Combobox("delay shot", delay_shot, SETTINGS::settings.delay_shot);
 							if (SETTINGS::settings.delay_shot == 0)
@@ -192,9 +211,10 @@ namespace MENU
 							else
 								GroupboxBegin("esp", 225); //125, 195
 						}
-						Combobox("draw box", box_style, SETTINGS::settings.box_type);
-						if (SETTINGS::settings.box_type > 0)
-							ColorPicker("box", SETTINGS::settings.box_col);
+						//Combobox("draw box", box_style, SETTINGS::settings.box_type);
+						//if (SETTINGS::settings.box_type > 0)
+						Checkbox("draw box", SETTINGS::settings.box_bool5);
+						ColorPicker("box", SETTINGS::settings.box_col);
 						Checkbox("draw name", SETTINGS::settings.name_bool);
 						Checkbox("draw weapon", SETTINGS::settings.weap_bool);
 						Checkbox("draw flags", SETTINGS::settings.info_bool);
@@ -240,9 +260,20 @@ namespace MENU
 						}
 						GroupboxEnd();
 
-						GroupboxBegin("world", 155); //180
+						GroupboxBegin("world", 180); //180
 						Checkbox("night mode", SETTINGS::settings.night_bool);
+						Checkbox("force crosshair", SETTINGS::settings.x1hair_bool);
+						Checkbox("fake chams", SETTINGS::settings.draw_fake);
+						if (SETTINGS::settings.draw_fake)
+							ColorPicker("color", SETTINGS::settings.fake_darw_col);
+
 						Checkbox("bullet tracers", SETTINGS::settings.beam_bool);
+						if (SETTINGS::settings.beam_bool)
+						{
+							ColorPicker("local", SETTINGS::settings.localbeam_col);
+							ColorPicker("enemy", SETTINGS::settings.enemybeam_col);
+							ColorPicker("friendly", SETTINGS::settings.friendlybeam_col);
+						}
 						Checkbox("remove smoke", SETTINGS::settings.smoke_bool);
 						Checkbox("thirdperson", SETTINGS::settings.tp_bool);
 						Checkbox("render spread", SETTINGS::settings.spread_bool);
@@ -261,19 +292,6 @@ namespace MENU
 						Checkbox("auto bunnyhop", SETTINGS::settings.bhop_bool);
 						Checkbox("auto strafer", SETTINGS::settings.strafe_bool);
 						//Checkbox("air duck", SETTINGS::settings.duck_bool);
-						GroupboxEnd();
-
-						if (!SETTINGS::settings.lag_bool)
-							GroupboxBegin("choking", 40);
-						else
-							GroupboxBegin("choking", 105); //85
-						Checkbox("fakelag", SETTINGS::settings.lag_bool);
-						if (SETTINGS::settings.lag_bool)
-						{
-							Combobox("fakelag mode", fakelag_mode, SETTINGS::settings.lag_type);
-							Slider("moving lag", 1, 15, SETTINGS::settings.move_lag);
-							Slider("jumping lag", 1, 15, SETTINGS::settings.jump_lag);
-						}
 						GroupboxEnd();
 
 						if (SETTINGS::settings.fake_bool)
@@ -297,6 +315,7 @@ namespace MENU
 					Checkbox("enable antiaim", SETTINGS::settings.aa_bool);
 					if (SETTINGS::settings.aa_bool)
 					{
+
 						if (SETTINGS::settings.aa_type == 5 || SETTINGS::settings.aa_type == 7)
 							GroupboxBegin("antiaim", 90);
 						else
@@ -308,6 +327,19 @@ namespace MENU
 						}
 						if (SETTINGS::settings.aa_type == 5 || SETTINGS::settings.aa_type == 7)
 							Slider("delta", 100, 180, SETTINGS::settings.delta_val);
+						GroupboxEnd();
+
+						if (!SETTINGS::settings.lag_bool)
+							GroupboxBegin("fakelag choking", 40);
+						else
+							GroupboxBegin("fakelag choking", 105); //85
+						//Checkbox("fakelag", SETTINGS::settings.lag_bool);
+						if (SETTINGS::settings.lag_bool)
+						{
+							Combobox("fakelag mode", fakelag_mode, SETTINGS::settings.lag_type);
+							Slider("moving lag", 1, 15, SETTINGS::settings.move_lag);
+							Slider("jumping lag", 1, 15, SETTINGS::settings.jump_lag);
+						}
 						GroupboxEnd();
 					}
 				}
@@ -330,16 +362,16 @@ namespace MENU
 					{
 						SETTINGS::settings.Load(config);
 
-						INTERFACES::cvar->ConsoleColorPrintf(CColor(200, 255, 0, 255), "[stackhack] ");
-						GLOBAL::Msg("Configuration loaded.    \n");
+						INTERFACES::cvar->ConsoleColorPrintf(CColor(200, 255, 0, 255), "[echocheats] ");
+						GLOBAL::Msg("config loaded    \n");
 					}
 					
 					if (Button("Save Config"))
 					{
 						SETTINGS::settings.Save(config);
 
-						INTERFACES::cvar->ConsoleColorPrintf(CColor(200, 255, 0, 255), "[stackhack] ");
-						GLOBAL::Msg("Configuration saved.    \n");
+						INTERFACES::cvar->ConsoleColorPrintf(CColor(200, 255, 0, 255), "[echocheats] ");
+						GLOBAL::Msg("config saved    \n");
 					}
 					GroupboxEnd();
 				}

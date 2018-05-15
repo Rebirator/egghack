@@ -223,7 +223,7 @@ void CAntiAim::do_antiaim(SDK::CUserCmd* cmd)
 	case 0:
 		break;
 	case 1:
-		cmd->viewangles.x = 89.000000; //emotion
+		cmd->viewangles.x = 89.000000; //emotion /// shouldn't this be 90???
 		break;
 	case 2:
 		cmd->viewangles.x = -180.f; //fake down
@@ -316,11 +316,29 @@ void CAntiAim::backwards(SDK::CUserCmd* cmd)
 
 void CAntiAim::legit(SDK::CUserCmd* cmd)
 {
-	if (GLOBAL::should_send_packet)
-		cmd->viewangles.y += 0;
+	if (SETTINGS::settings.flip_bool)
+		{
+			if (GLOBAL::should_send_packet)
+			cmd->viewangles.y += 0;
+			else
+				cmd->viewangles.y -= 90;
+		}
 	else
-		cmd->viewangles.y += 90;
+		{
+			if (GLOBAL::should_send_packet)
+				cmd->viewangles.y += 0;
+			else
+				cmd->viewangles.y += 90;
+		}
 }
+
+/*void CAntiAim::legitbackup(SDK::CUserCmd* cmd)
+{
+		if (GLOBAL::should_send_packet)
+			cmd->viewangles.y += 0;
+		else
+			cmd->viewangles.y += 90;
+}*/
 
 float ns_num;
 float last_lby;

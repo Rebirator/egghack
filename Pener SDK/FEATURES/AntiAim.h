@@ -13,6 +13,7 @@ public:
 private:
 	void backwards(SDK::CUserCmd* cmd);
 	void legit(SDK::CUserCmd* cmd);
+	//void legitbackup(SDK::CUserCmd* cmd);
 	void sidespin(SDK::CUserCmd * cmd);
 	void freestand(SDK::CUserCmd * cmd);
 	void sideways(SDK::CUserCmd* cmd);

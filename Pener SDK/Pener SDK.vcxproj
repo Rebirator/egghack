@@ -22,6 +22,7 @@
     <ProjectGuid>{BFD93737-8F53-46F1-8BFE-6812A5364973}</ProjectGuid>
     <RootNamespace>PenerSDK</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <ProjectName>egghack</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -130,7 +131,6 @@
     <ClInclude Include="FEATURES\Resolver.h" />
     <ClInclude Include="FEATURES\ShowRanks.h" />
     <ClInclude Include="FEATURES\Visuals.h" />
-    <ClInclude Include="HOOKS\MAKESEPERATEFILESFORHOOKS.h" />
     <ClInclude Include="includes.h" />
     <ClInclude Include="MENU\Components.h" />
     <ClInclude Include="MENU\menu_commands.h" />

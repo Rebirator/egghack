@@ -73,16 +73,17 @@ namespace SETTINGS
 		bool beam_bool;
 		bool stop_bool;
 		bool night_bool;
-		bool box_bool;
+		bool x1hair_bool;
+		bool box_bool5;
 		bool name_bool;
 		bool weap_bool;
 		bool health_bool;
 		bool info_bool;
 		bool back_bool;
-		bool lag_bool;
+		bool lag_bool = true;
 		int box_type;
 		bool reverse_bool;
-		bool multi_bool;
+		bool multi_bool = true;
 		bool fakefix_bool;
 		bool angle_bool;
 		bool tp_angle_bool;
@@ -93,6 +94,7 @@ namespace SETTINGS
 		bool scope_bool;
 		bool predict_bool;
 		bool fake_bool;
+		bool box_bool;
 		int media_type;
 		bool novis_bool;
 		bool localglow_bool;
@@ -101,30 +103,36 @@ namespace SETTINGS
 		int delay_shot;
 		int lag_type;
 		bool cham_bool;
-		bool resolve_bool;
+		bool resolve_bool = true;
 		bool ammo_bool;
+		bool draw_fake;
 		bool spread_bool;
 
 		float stand_lag;
-		float move_lag;
-		float jump_lag;
+		float move_lag = 10;
+		float jump_lag = 15;
 
 		bool debug_bool;
 
 		CColor vmodel_col;
 		CColor imodel_col;
 		CColor lvmodel_col;
+		CColor fake_darw_col;
 
 		CColor box_col;
-		CColor menu_col = CColor(255, 75, 0);
+		CColor menu_col = CColor(75, 255, 0);
 		CColor glow_col;
 		CColor fov_col;
 
-		float chance_val;
-		float damage_val;
-		float delta_val;
-		float point_val;
-		float body_val;
+		CColor localbeam_col;
+		CColor enemybeam_col;
+		CColor friendlybeam_col;
+
+		float chance_val = 55;
+		float damage_val = 11;
+		float delta_val = 128;
+		float point_val = 0.8f;
+		float body_val = 0.3f;
 		float vfov_val;
 		float fov_val;
 		//float tpdist_val;

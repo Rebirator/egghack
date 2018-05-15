@@ -1,0 +1,29 @@
+
+15th may 2018 {
+@+ ADDED fake angle chams
+@+ FIXED box esp
+@+ kinda fixed Anti Aims by forcing fake lag
+@+ added custom custom for fake chams
+@+ fixed crashing
+@+ added beam colorisation
+@+ made bullet beams better (still need to be "fixed")
+@+ made throw_time use a hardcoded offset (more stable until csgo updates it (BASICALLY saying it was the cause of one of the crashes))
+@+ made legit aa be manual (left + right)
+@= kept the og legit aa (for testing)
+@+ renamed some stackhack shit to egghack (or echo cheats)
+@+ changed menu color
+@+ added "force crosshair" (enables default crosshair for snipers etc)
+@- removed some irrlevanrt shit
+@- removed "missed shot due to spread#
+@? possibly broke hit event by removing above
+ /* uhm some reason anti aims are broken could be fake chams- im tired and want to sleep someone else investigate ty!
+	EDIT: just checked nope not fakeangles could be SetAngle2
+		EDIT2: just check SetAngle2 (required for fake chams) they WEREN'T the problem
+			EDIT3: yup im going bed now cba to try find the problem someone else fix?
+				EDIT4: found the problem out FakeLag needs to be enabled to some extent */
+
+/* fake chams color dont work */
+
+
+/// i probs have done some more so check please thank you xd!
+}
