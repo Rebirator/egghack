@@ -780,7 +780,7 @@ void CVisuals::DrawInaccuracy()
 		auto accuracy = (weapon->GetInaccuracy() + weapon->GetSpreadCone()) * 500.f;
 
 		if (!weapon->is_grenade() && !weapon->is_knife())
-			RENDER::DrawFilledCircle(cW, cH, accuracy + 3, 30, CColor(0, 0, 0, 85));
+			RENDER::DrawFilledCircle(cW, cH, accuracy + 3, 30, SETTINGS::settings.spread_col);
 	}
 }
 

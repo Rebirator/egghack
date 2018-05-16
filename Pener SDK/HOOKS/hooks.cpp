@@ -432,6 +432,17 @@ namespace HOOKS
 					}
 				}
 			}*/
+
+			std::string strModelName = INTERFACES::ModelInfo->GetModelName(render_info.pModel);
+			if (SETTINGS::settings.wirehand_bool)
+			{
+				if (strModelName.find("arms") != std::string::npos && SETTINGS::settings.wirehand_bool)
+				{
+					SDK::IMaterial* WireHands = INTERFACES::MaterialSystem->FindMaterial(strModelName.c_str(), TEXTURE_GROUP_MODEL);
+					WireHands->SetMaterialVarFlag(SDK::MATERIAL_VAR_WIREFRAME, true);
+					INTERFACES::ModelRender->ForcedMaterialOverride(WireHands);
+				}
+			} /// might add color later 
 		}
 		original_draw_model_execute(ecx, context, state, render_info, matrix);
 		INTERFACES::ModelRender->ForcedMaterialOverride(nullptr);

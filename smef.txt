@@ -27,3 +27,11 @@
 
 /// i probs have done some more so check please thank you xd!
 }
+
+16th may 2018 {
+@+ added wirehand chams
+@+ added menu color changer (badly coded; coded it b4 watching deadpool don't judge)
+@+ added spread crosshair color
+@? started to add autobuy
+@+ temp fix for MiddleMouse (mwheelup + down) glitching out viewangles
+} /* when in first person if thirdperson is not one then pressing even using Middle Mouse button (even for jumping like mwheelup) bugs out */ /// temp fixed

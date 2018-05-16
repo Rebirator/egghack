@@ -44,7 +44,7 @@ namespace MENU
 			colors[SEPARATOR_TEXT] = WHITE;
 			colors[SEPARATOR_LINE] = CColor(90, 90, 90, 255);
 
-			colors[CHECKBOX_CLICKED] = CColor(75, 255, 0), 255; //255, 75, 0
+			colors[CHECKBOX_CLICKED] = SETTINGS::settings.menu_col, 255; //255, 75, 0
 			colors[CHECKBOX_NOT_CLICKED] = CColor(90, 90, 90, 255);
 			colors[CHECKBOX_TEXT] = WHITE;
 
@@ -58,12 +58,12 @@ namespace MENU
 			colors[COMBOBOX_ITEM_TEXT] = WHITE;
 
 			colors[SLIDER_BODY] = CColor(90, 90, 90, 255);
-			colors[SLIDER_VALUE] = CColor(75, 255, 0, 255); //255, 75, 0
+			colors[SLIDER_VALUE] = SETTINGS::settings.menu_col; //255, 75, 0
 			colors[SLIDER_TEXT] = WHITE;
 
 			colors[TAB_BODY] = CColor(90, 90, 90, 255);
 			colors[TAB_TEXT] = WHITE;
-			colors[TAB_BODY_SELECTED] = CColor(75, 255, 0, 255); //255, 75, 0
+			colors[TAB_BODY_SELECTED] = SETTINGS::settings.menu_col; //255, 75, 0
 			colors[TAB_TEXT_SELECTED] = WHITE;
 
 			colors[VERTICAL_TAB_BODY] = CColor(70, 70, 70, 255);
@@ -112,7 +112,6 @@ namespace MENU
 			RENDER::DrawFilledRect(w - 182, 4, 182 + w - 187, 20, CColor(96, 150, 0, 125));
 			RENDER::DrawF(w - 187 + 7, 5, FONTS::menu_window_font, false, false, CColor(255, 255, 255, 255), "echocheats | ");
 			RENDER::DrawF(w - 187 + 92, 5, FONTS::menu_window_font, false, false, CColor(255, 255, 255, 255), nowtime());
-
 
 			if (menu_open)
 			{
@@ -185,7 +184,8 @@ namespace MENU
 							Checkbox("quick stop", SETTINGS::settings.stop_bool);
 							Combobox("delay shot", delay_shot, SETTINGS::settings.delay_shot);
 							if (SETTINGS::settings.delay_shot == 0)
-								Checkbox("extrapolation", SETTINGS::settings.fakefix_bool);
+								//Checkbox("extrapolation", SETTINGS::settings.fakefix_bool);
+								/// needs adding
 							GroupboxEnd();
 						}
 					}
@@ -214,7 +214,8 @@ namespace MENU
 						//Combobox("draw box", box_style, SETTINGS::settings.box_type);
 						//if (SETTINGS::settings.box_type > 0)
 						Checkbox("draw box", SETTINGS::settings.box_bool5);
-						ColorPicker("box", SETTINGS::settings.box_col);
+						if (SETTINGS::settings.box_bool5)
+							ColorPicker("box", SETTINGS::settings.box_col);
 						Checkbox("draw name", SETTINGS::settings.name_bool);
 						Checkbox("draw weapon", SETTINGS::settings.weap_bool);
 						Checkbox("draw flags", SETTINGS::settings.info_bool);
@@ -260,7 +261,14 @@ namespace MENU
 						}
 						GroupboxEnd();
 
-						GroupboxBegin("world", 180); //180
+						GroupboxBegin("misc", 180); //180
+						ColorPicker("menu color", SETTINGS::settings.menu_col);
+						Checkbox("apply menu color", SETTINGS::settings.menu_apply);
+						if (SETTINGS::settings.menu_apply)
+						{
+							InitColors();
+							SETTINGS::settings.menu_apply = false;
+						}
 						Checkbox("night mode", SETTINGS::settings.night_bool);
 						Checkbox("force crosshair", SETTINGS::settings.x1hair_bool);
 						Checkbox("fake chams", SETTINGS::settings.draw_fake);
@@ -275,8 +283,11 @@ namespace MENU
 							ColorPicker("friendly", SETTINGS::settings.friendlybeam_col);
 						}
 						Checkbox("remove smoke", SETTINGS::settings.smoke_bool);
+						Checkbox("wireframe hands", SETTINGS::settings.wirehand_bool);
 						Checkbox("thirdperson", SETTINGS::settings.tp_bool);
 						Checkbox("render spread", SETTINGS::settings.spread_bool);
+						if (SETTINGS::settings.spread_bool)
+							ColorPicker("enemy", SETTINGS::settings.spread_col);
 						//Checkbox("thirdperson effects", SETTINGS::settings.tp_angle_bool);
 						Checkbox("remove scope", SETTINGS::settings.scope_bool);
 						GroupboxEnd();
@@ -361,7 +372,7 @@ namespace MENU
 					if (Button("Load Config"))
 					{
 						SETTINGS::settings.Load(config);
-
+						InitColors();
 						INTERFACES::cvar->ConsoleColorPrintf(CColor(200, 255, 0, 255), "[echocheats] ");
 						GLOBAL::Msg("config loaded    \n");
 					}

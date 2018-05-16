@@ -60,7 +60,7 @@ namespace SETTINGS
 		bool esp_bool;
 		int chams_type;
 		int xhair_type;
-		bool tp_bool;
+		bool tp_bool = true;
 		bool aim_bool;
 		int aim_type;
 		bool aa_bool;
@@ -101,13 +101,15 @@ namespace SETTINGS
 		bool duck_bool;
 		bool money_bool;
 		int delay_shot;
+		bool menu_apply;
+		bool wirehand_bool;
 		int lag_type;
 		bool cham_bool;
 		bool resolve_bool = true;
 		bool ammo_bool;
 		bool draw_fake;
 		bool spread_bool;
-
+		CColor spread_col = CColor(0, 0, 0, 85);
 		float stand_lag;
 		float move_lag = 10;
 		float jump_lag = 15;
