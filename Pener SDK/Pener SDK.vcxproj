@@ -57,12 +57,14 @@
     <ClInclude Include="FEATURES\Chams.h" />
     <ClInclude Include="FEATURES\EnginePred.h" />
     <ClInclude Include="FEATURES\Extrapolation.h" />
+    <ClInclude Include="FEATURES\EventListener.h" />
     <ClInclude Include="FEATURES\FakeLag.h" />
     <ClInclude Include="FEATURES\Fakewalk.h" />
     <ClInclude Include="FEATURES\Movement.h" />
     <ClInclude Include="FEATURES\Resolver.h" />
     <ClInclude Include="FEATURES\ShowRanks.h" />
     <ClInclude Include="FEATURES\Visuals.h" />
+    <ClInclude Include="HOOKS\hooks.h" />
     <ClInclude Include="includes.h" />
     <ClInclude Include="MENU\Components.h" />
     <ClInclude Include="MENU\menu_commands.h" />
@@ -89,7 +91,6 @@
     <ClInclude Include="SDK\CUserCmd.h" />
     <ClInclude Include="SDK\CViewSetup.h" />
     <ClInclude Include="SDK\GameEvents.h" />
-    <ClInclude Include="FEATURES\EventListener.h" />
     <ClInclude Include="SDK\IClient.h" />
     <ClInclude Include="SDK\IEngine.h" />
     <ClInclude Include="SDK\IMaterial.h" />
@@ -108,7 +109,6 @@
     <ClInclude Include="UTILS\color.h" />
     <ClInclude Include="UTILS\CUtlVector.h" />
     <ClInclude Include="UTILS\general_utils.h" />
-    <ClInclude Include="HOOKS\hooks.h" />
     <ClInclude Include="UTILS\input_handler.h" />
     <ClInclude Include="UTILS\interfaces.h" />
     <ClInclude Include="UTILS\logging.h" />
@@ -141,6 +141,7 @@
     <ClCompile Include="FEATURES\Resolver.cpp" />
     <ClCompile Include="FEATURES\ShowRanks.cpp" />
     <ClCompile Include="FEATURES\Visuals.cpp" />
+    <ClCompile Include="HOOKS\hooks.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MENU\menu_commands.cpp" />
     <ClCompile Include="MENU\menu_framework.cpp" />
@@ -149,7 +150,6 @@
     <ClCompile Include="SDK\CGlobalVars.cpp" />
     <ClCompile Include="SDK\sdk.cpp" />
     <ClCompile Include="UTILS\general_utils.cpp" />
-    <ClCompile Include="HOOKS\hooks.cpp" />
     <ClCompile Include="UTILS\input_handler.cpp" />
     <ClCompile Include="UTILS\interfaces.cpp" />
     <ClCompile Include="UTILS\logging.cpp" />
